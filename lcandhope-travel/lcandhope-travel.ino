@@ -20,24 +20,12 @@
 #define VOLTS          12
 #define MAX_MA       4000
 
-// Rotary Encoder Inputs
-#define CLK 2
-#define DT 3
-#define SW 4
-
 // hue, speed, and brighness vars
 float bright = 55;
 int brightLimit = 65;
 int speed = 25;
 float fadeAmt = 5;
 
-// Rotary Encoder Params
-/*
-int counter = 0;
-int currentStateCLK;
-int lastStateCLK;
-String currentDir ="";
-*/
 
 // hardware controls
 int inputA0 = 0; // analogRead(A0); // color
@@ -103,17 +91,6 @@ void setup() {
     .setCorrection(TypicalLEDStrip);
 
   chooseNextColorPalette(gTargetPalette);
-
-  // Set rotary encoder pins as inputs
-  /*
-	pinMode(CLK,INPUT);
-	pinMode(DT,INPUT);
-  // Read the initial state of CLK
-	lastStateCLK = digitalRead(CLK);
-	// Call updateEncoder() when any high/low changed seen on interrupt 0 (pin 2), or interrupt 1 (pin 3)
-	attachInterrupt(0, updateEncoder, CHANGE);
-	attachInterrupt(1, updateEncoder, CHANGE);
-  */
 
   // FastLED.addLeds<WS2812,DATA_PIN,RGB>(leds,NUM_LEDS);
   FastLED.setBrightness(bright);
@@ -201,38 +178,6 @@ switch (style_id) {
 
 }
 
-/// rotary encoder functions
-/*
-void updateEncoder(){
-	// Read the current state of CLK
-	currentStateCLK = digitalRead(CLK);
-
-	// If last and current state of CLK are different, then pulse occurred
-	// React to only 1 state change to avoid double count
-	if (currentStateCLK != lastStateCLK  && currentStateCLK == 1){
-
-		// If the DT state is different than the CLK state then
-		// the encoder is rotating CCW so decrement
-		if (digitalRead(DT) != currentStateCLK) {
-			counter --;
-			currentDir ="CCW";
-		} else {
-			// Encoder is rotating CW so increment
-			counter ++;
-			currentDir ="CW";
-		}
-
-		Serial.print("Direction: ");
-		Serial.print(currentDir);
-		Serial.print(" | Counter: ");
-		Serial.println(counter);
-	}
-	// Serial.println("Rotary Detected: " + counter);
-	// Remember last CLK state
-	lastStateCLK = currentStateCLK;
-}
-
-*/
 
 void doNone(){
     fadeall();
